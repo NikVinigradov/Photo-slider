@@ -26,10 +26,11 @@ function initSlider(options) {
   let sliderImages = document.querySelector(".box__image_slider");
   let sliderArrows = document.querySelectorAll(".slider_arrow");
   let sliderDots = document.querySelector('.slider_dots')
+  let sliderNavigation = document.querySelector('.box__image_name')
   const text = document.querySelector(".city");
   const time = document.querySelector(".time");
   const area = document.querySelector(".area")
-  const city = document.querySelectorAll('.name_city')
+  let city = document.querySelectorAll('.name_city')
 
   
   initImages();
@@ -74,12 +75,28 @@ function initArrows() {
 
 function initDots() {
     images.forEach((image, index) => {
-      let dot = `<div class="slider__dots-item n${index} ${index === 0? "active" : ""}" data-index="${index}"></div>`
-    sliderDots.innerHTML += dot;
+      let dot = `<div class="slider__dots-item n${index} ${index === 0? "active" : ""}"  data-index="${index}"></div>`
+      sliderDots.innerHTML += dot;
     });
 
     sliderDots.querySelectorAll(".slider__dots-item").forEach(dot => {
       dot.addEventListener("click", function() {
+        ind = this.dataset.index;
+        NextText(ind)
+        moveSlider(ind)
+      })
+    })
+  }
+
+
+  function initNavigation() {
+    images.forEach((image, index) => {
+      let dot = `<div class="box__image_name-item n${index} ${index === 0? "active" : ""}"  data-index="${index}"></div>`
+      sliderNavigation.innerHTML += num;
+    });
+
+    sliderNavigation.querySelectorAll(".box__image_name-item").forEach(num => {
+      num.addEventListener("click", function() {
         ind = this.dataset.index;
         NextText(ind)
         moveSlider(ind)
@@ -113,8 +130,8 @@ function initDots() {
   }
 
   function moveSlider(num) {
-    document.querySelector(".active").classList.remove("active");
-    document.querySelector(".num" + num).classList.add("active");
+    sliderNavigation.querySelector(".active").classList.remove("active");
+    sliderNavigation.querySelector(".num" + num).classList.add("active");
     sliderImages.querySelector(".active").classList.remove("active");
     sliderImages.querySelector(".n" + num).classList.add("active");
 
